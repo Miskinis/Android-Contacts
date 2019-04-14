@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorDarkMode"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorDarkMode"
+        android:textColorHint="@color/colorDarkMode"
+        android:textSize="25sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/colorDarkMode"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorDarkMode"
+        android:textColorHint="@color/colorDarkMode"
+        android:textSize="25sp"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorDarkMode"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:textColor="@color/colorDarkMode"
+        android:textColorHint="@color/colorDarkMode"
+        android:textSize="25sp"
+        android:importantForAutofill="no" />
+
+</LinearLayout>
