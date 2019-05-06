@@ -1,13 +1,11 @@
-package com.eima.iwa1;
+package com.eima.contacts;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -31,11 +29,9 @@ public class InputFormActivity extends AppCompatActivity {
         phoneNumberInputView.setText(senderIntent.getStringExtra("phoneNumber"));
 
         FloatingActionButton save_contact_fab = findViewById(R.id.save_contact_fab);
-        save_contact_fab.setOnClickListener(new View.OnClickListener()
-        {
+        save_contact_fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 EditText nameInputView = findViewById(R.id.name_input);
                 EditText emailInputView = findViewById(R.id.email_input);
                 EditText phoneNumberInputView = findViewById(R.id.phone_number_input);
@@ -46,7 +42,7 @@ public class InputFormActivity extends AppCompatActivity {
                 returnIntent.putExtra("phoneNumber", phoneNumberInputView.getText().toString());
                 returnIntent.putExtra("add", senderIntent.getBooleanExtra("add", true));
 
-                setResult(Activity.RESULT_OK,returnIntent);
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });

@@ -1,4 +1,4 @@
-package com.eima.iwa1;
+package com.eima.contacts;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,14 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
@@ -68,7 +66,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             currentSelection = getAdapterPosition();
             notifyItemChanged(currentSelection);
 
-            String[] colors = {"Edit", "Delete"};
+            String[] colors = {"Edit", "Delete", "QR Code"};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
             builder.setTitle("Options");
@@ -93,6 +91,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
                             notifyItemRemoved(currentSelection);
                             String directory = view.getContext().getFilesDir().getAbsolutePath();
                             Contact.WriteJsonFile(directory + "/contacts.json", mContacts);
+                            break;
+                        case 2:
+                            context = view.getContext();
+                            intent = new Intent(context, QRcodeActivity.class);
+                            activity = (Activity) context;
+                            contact = mContacts.get(currentSelection);
+                            intent.putExtra("name", contact.getName());
+                            activity.startActivityForResult(intent, 0);
                             break;
                     }
                 }

@@ -1,4 +1,4 @@
-package com.eima.iwa1;
+package com.eima.contacts;
 
 //JSON is a serializer/deserializer for data text files
 //https://code.google.com/archive/p/json-simple/
@@ -20,7 +20,7 @@ public class Contact {
     private String email;
     private String phoneNumber;
 
-    public Contact(String name, String email, String phoneNumber)
+    Contact(String name, String email, String phoneNumber)
     {
         this.name = name;
         this.email = email;
@@ -32,14 +32,8 @@ public class Contact {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() { return phoneNumber; }
-
     //Writes Contact class ArrayList to Json file
-    public static void WriteJsonFile(String filename, ArrayList<Contact> contacts)
+    static void WriteJsonFile(String filename, ArrayList<Contact> contacts)
     {
         JSONObject root = new JSONObject();
         JSONArray jsonContactsArray = new JSONArray();
@@ -68,7 +62,7 @@ public class Contact {
     }
 
     //Reads Json file strings and outputs a Contact class ArrayList
-    public static ArrayList<Contact> ReadJsonFile(String filename)
+    static ArrayList<Contact> ReadJsonFile(String filename)
     {
         File file = new File(filename);
         StringBuilder fileContents = new StringBuilder((int) file.length());
@@ -79,7 +73,7 @@ public class Contact {
         {
             while (scanner.hasNextLine())
             {
-                fileContents.append(scanner.nextLine() + System.lineSeparator());
+                fileContents.append(scanner.nextLine()).append(System.lineSeparator());
             }
             rawData = fileContents.toString();
         }
@@ -114,7 +108,7 @@ public class Contact {
     }
 
     //Parses Contact class data to Json string
-    public static JSONObject CreateJsonObject(Contact ContactData)
+    private static JSONObject CreateJsonObject(Contact ContactData)
     {
         JSONObject Contact = new JSONObject();
         Contact.put("name", ContactData.name);
@@ -124,8 +118,16 @@ public class Contact {
     }
 
     //Parse Json string values to Contact class values
-    public static Contact JsonToClassParser(JSONObject jsonObject)
+    private static Contact JsonToClassParser(JSONObject jsonObject)
     {
         return new Contact(jsonObject.get("name").toString(), jsonObject.get("email").toString(), jsonObject.get("phoneNumber").toString());
+    }
+
+    String getEmail() {
+        return email;
+    }
+
+    String getPhoneNumber() {
+        return phoneNumber;
     }
 }
