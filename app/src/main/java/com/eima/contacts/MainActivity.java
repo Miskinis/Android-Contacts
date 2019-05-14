@@ -3,21 +3,22 @@ package com.eima.contacts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.io.File;
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Contact> contacts;
+    private List<Contact> contacts;
     private ContactsAdapter adapter;
 
     @Override
@@ -27,15 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        File directory = new File(getBaseContext().getFilesDir().getAbsolutePath() + "/contacts.json");
-        if(directory.exists())
-        {
-            contacts = Contact.ReadJsonFile(directory.getPath());
-        }
-        else
-        {
-            contacts = new ArrayList<Contact>(1);
-        }
+        contacts = AppDatabase.getAppDatabase(this).contactDao().getAll();
 
         //
         RecyclerView rvContacts = findViewById(R.id.rvContacts);
@@ -70,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter.ChangeItem(contact);
                 }
 
-                String directory = getBaseContext().getFilesDir().getAbsolutePath();
-                Contact.WriteJsonFile(directory + "/contacts.json", contacts);
+                AppDatabase.getAppDatabase(this).contactDao().insert(contact);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -99,5 +91,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        AppDatabase.destroyInstance();
+        super.onDestroy();
     }
 }
